@@ -45,11 +45,37 @@ namespace AMcom.Teste.Service.Tests
                 Should().HaveCount(0, "não há erros");
         }
 
+
+        [Theory(DisplayName = "Latitude abaixo de 90 ou acima de -90 não deve gerar erro")]
+        [InlineData(10.3)]
+        [InlineData(45)]
+        [InlineData(-65.2)]
+        [InlineData(-40.1)]
+        public void UbsService_ObterUbsLatitudeCorreta_DeveGerarSucesso(double latitude)
+        {
+            //Arrange
+            _ubsServiceFixtures.Mocker.GetMock<IUbsRepository>()
+                .Setup(c => c.Obter())
+                .Returns(_ubsServiceFixtures.ObterUbsValidas(5));
+
+            var ubsService = _ubsServiceFixtures.ObterUbsService();
+
+            //Act
+            var ubs = ubsService.ObterUbs(latitude, -40);
+
+            //Assert
+            ubs.Errors.
+                Should().HaveCount(0, "a latitude está correta");
+
+            ubs.Value
+                .Should().HaveCount(5, "a latitude está correta");
+        }
+
         [Theory(DisplayName = "Latitude acima de 90 ou abaixo de -90 deve gerar erro")]
         [InlineData(91)]
-        [InlineData(300)]
+        [InlineData(300.2)]
         [InlineData(-91)]
-        [InlineData(-150)]
+        [InlineData(-150.5)]
 
         public void UbsService_ObterUbsLatitudeIncorreta_DeveGerarErro(double latitude)
         {
@@ -67,5 +93,56 @@ namespace AMcom.Teste.Service.Tests
             ubs.Errors.
                 Should().HaveCountGreaterThan(0, "a latitude está inválida");
         }
+
+        [Theory(DisplayName = "Longitude abaixo de 90 ou acima de -90 não deve gerar erro")]
+        [InlineData(68.1)]
+        [InlineData(36)]
+        [InlineData(-82.4)]
+        [InlineData(-8.7)]
+        public void UbsService_ObterUbsLongitudeCorreta_DeveGerarSucesso(double longitude)
+        {
+            //Arrange
+            _ubsServiceFixtures.Mocker.GetMock<IUbsRepository>()
+                .Setup(c => c.Obter())
+                .Returns(_ubsServiceFixtures.ObterUbsValidas(5));
+
+            var ubsService = _ubsServiceFixtures.ObterUbsService();
+
+            //Act
+            var ubs = ubsService.ObterUbs(_ubsServiceFixtures.LatitudeValida(), longitude);
+
+            //Assert
+            ubs.Errors.
+                Should().HaveCount(0, "a longitude está correta");
+
+            ubs.Value
+                .Should().HaveCount(5, "a longitude está correta");
+        }
+
+
+        [Theory(DisplayName = "Longitude acima de 90 ou abaixo de -90 deve gerar erro")]
+        [InlineData(91.8)]
+        [InlineData(100.2)]
+        [InlineData(-91)]
+        [InlineData(-150.5)]
+
+        public void UbsService_ObterUbsLongitudeIncorreta_DeveGerarErro(double longitude)
+        {
+            //Arrange
+            _ubsServiceFixtures.Mocker.GetMock<IUbsRepository>()
+                .Setup(c => c.Obter())
+                .Returns(_ubsServiceFixtures.ObterUbsValidas(5));
+
+            var ubsService = _ubsServiceFixtures.ObterUbsService();
+
+            //Act
+            var ubs = ubsService.ObterUbs(_ubsServiceFixtures.LatitudeValida(), longitude);
+
+            //Assert
+            ubs.Errors.
+                Should().HaveCountGreaterThan(0, "a latitude está inválida");
+        }
     }
+
+
 }
