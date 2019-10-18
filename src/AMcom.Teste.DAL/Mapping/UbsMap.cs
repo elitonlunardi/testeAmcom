@@ -5,6 +5,10 @@ using CsvHelper.Configuration;
 
 namespace AMcom.Teste.DAL.Mapping
 {
+    /// <summary>
+    /// Classe de mapeamento das colunas do arquivo no excel para a entidade.
+    /// Herança do próprio CsvHelper.
+    /// </summary>
     public class UbsMap : ClassMap<Ubs>
     {
         public UbsMap()

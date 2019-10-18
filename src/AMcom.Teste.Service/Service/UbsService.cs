@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AMcom.Teste.DAL;
 using AMcom.Teste.DAL.Interface;
 using AMcom.Teste.Service.DTO;
 using AMcom.Teste.Service.Interface;
