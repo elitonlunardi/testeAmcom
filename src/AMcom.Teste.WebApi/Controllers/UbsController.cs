@@ -1,4 +1,7 @@
-﻿using AMcom.Teste.Service.Interface;
+﻿using System.Collections.Generic;
+using AMcom.Teste.Service.DTO;
+using AMcom.Teste.Service.Interface;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -20,8 +23,14 @@ namespace AMcom.Teste.WebApi.Controllers
         [HttpGet]
         public IActionResult Get(double latitude, double longitude)
         {
-            var a = _ubsService.ObterUbs(latitude, longitude);
-            return Ok(a);
+            var result = _ubsService.ObterUbs(latitude, longitude);
+
+            if (result.IsFailed)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return Ok(result.Value);
         }
     }
 }
