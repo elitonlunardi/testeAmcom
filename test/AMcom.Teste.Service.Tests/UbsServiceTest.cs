@@ -18,7 +18,6 @@ namespace AMcom.Teste.Service.Tests
             _ubsServiceFixtures = ubsServiceFixtures;
         }
 
-
         [Fact(DisplayName = "Obter cinco ubs do repositório sem erros")]
         public void UbsService_ObterUbsCorreto_DeveRetornar5Ubs()
         {
@@ -45,7 +44,6 @@ namespace AMcom.Teste.Service.Tests
                 Should().HaveCount(0, "não há erros");
         }
 
-
         [Theory(DisplayName = "Latitude abaixo de 90 ou acima de -90 não deve gerar erro")]
         [InlineData(10.3)]
         [InlineData(45)]
@@ -61,7 +59,7 @@ namespace AMcom.Teste.Service.Tests
             var ubsService = _ubsServiceFixtures.ObterUbsService();
 
             //Act
-            var ubs = ubsService.ObterUbs(latitude, -40);
+            var ubs = ubsService.ObterUbs(latitude, _ubsServiceFixtures.LongitudeValida());
 
             //Assert
             ubs.Errors.
@@ -87,7 +85,7 @@ namespace AMcom.Teste.Service.Tests
             var ubsService = _ubsServiceFixtures.ObterUbsService();
 
             //Act
-            var ubs = ubsService.ObterUbs(latitude, 50);
+            var ubs = ubsService.ObterUbs(latitude, _ubsServiceFixtures.LongitudeValida());
 
             //Assert
             ubs.Errors.
