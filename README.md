@@ -1,3 +1,20 @@
+# NuGets utilizados
+
+- CsvHelper para efetuar a extração dos dados do arquivo Excel;
+- GeoCoordinate.NetCore para efetuar o cálculo da distância das coordenadas;
+- FluentResults para efetuar o tratamento de exceções na aplicação;
+- Swashbuckle.AspNetCore para disponibilizar a documentação da API;
+
+# NuGets utilizados para a camada de testes de unidade
+
+- XUnit para efetuar os testes;
+- Bogus para efetuar a criação de dados aleatórios;
+- FluentAssertions para efetuar a asserção dos testes;
+- FluentResults necessário para efetuar o Mocking de algumas classes;
+- MOQ e MOQ.AutoMock para efetuar o Mocking e AutoMocking;
+
+----------------------------------------------------------------------------------------------------------------------------------
+
 # Teste de desenvolvimento .NET (C#) - AMcom
 
 Implemente uma Web API que permita consultar e listas as 5 Unidades Básicas de Saúde (UBSs) mais próximas das coordenadas de latitude e longitude fornecidas como parâmetro e apresente o resultado ordenado pela avaliação de desempenho dessas unidades, da mais alta para a mais baixa.
